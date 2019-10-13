@@ -21,13 +21,13 @@
       <h3 style="margin-top: 10%;">LOGIN</h3>
 
       <p>
-        <ons-input id="username" modifier="underbar" placeholder="Username" float></ons-input>
+        <ons-input id="username" name="username" modifier="underbar" placeholder="Username" float></ons-input>
       </p>
       <p>
-        <ons-input id="password" modifier="underbar" type="password" placeholder="Password" float></ons-input>
+        <ons-input id="password" name="password" modifier="underbar" type="password" placeholder="Password" float></ons-input>
       </p>
       <p style="margin-top: 30px;">
-        <ons-button >Sign in</ons-button>
+        <ons-button onclick="signin()" >Sign in</ons-button>
         <ons-button >Register</ons-button>
       </p>
       or
@@ -46,6 +46,16 @@
 
   <div style="border:1px solid #0000 ; height: 20%;">
   </div>
+
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="/__/firebase/7.2.0/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="/__/firebase/7.2.0/firebase-analytics.js"></script>
+
+<!-- Initialize Firebase -->
+<script src="/__/firebase/init.js"></script>
 
 </body>
 
