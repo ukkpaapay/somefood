@@ -1,13 +1,12 @@
 var signin = function(){
     var username = document.getElementById("username").value;
     var password = document.getElementById("password").value;
-    if(username != "ukkpaapay" && password != "55659900"){
+    if(username != "ukkpaapay@hotmail.com" && password != "55659900"){
 
     }else{
         window.location.replace("foodcategory.html");
     }
 }
-
 
   // Your web app's Firebase configuration
   var firebaseConfig = {
@@ -22,6 +21,7 @@ var signin = function(){
   };
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
-  firebase.analytics();
-
+  
   var db = firebase.firestore();
+
+  
