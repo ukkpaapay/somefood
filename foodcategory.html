@@ -3,7 +3,7 @@
   <div class="toolbar">
     <div class="toolbar__left">
       <div class="toolbar__left">
-        <span class="toolbar-button">Back</span>
+          <ons-back-button id="back">Back</ons-back-button>
       </div>
       <span class="toolbar-button">
         <i class="ion-navicon" style="font-size:32px; vertical-align:-6px;"></i>
@@ -14,6 +14,8 @@
       Food Category
     </div>
   </div>
+
+  
 
   <ons-card style="background-color: #ededed ; height: 90%;">
       <center>
@@ -50,12 +52,16 @@
           </ons-card></ons-col>
       
         </ons-row>
+
+        <div class="content" style="text-align: center;">
+            <div class="recomended">
+                <h4>Recomended</h4>
+                <ons-carousel auto-scroll auto-scroll-ratio="0.5" auto-refresh swipeable overscrollable item-width="130px"
+                    class="recomended_list" id="carousel">
+      
+      
+                </ons-carousel>
         
-        <ons-card style=" height:130px; width:92% ;">
-      <center>
-        <p style="margin-top: 15%;">See more...</p>
-      </center>
-    </ons-card><br>
   </center>
 </ons-card>
 
