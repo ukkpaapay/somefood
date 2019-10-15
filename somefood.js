@@ -91,8 +91,8 @@ document.addEventListener('init', function (event) {
   }
 });
 
-if (page.id === 'homePage') {
-  db.collection("restaurant").get().then((querySnapshot) => {
+if (page.id === 'foodcategory') {
+  db.collection("recommended").get().then((querySnapshot) => {
     querySnapshot.forEach((doc) => {
       //object
       console.log(`${doc.id} => ${doc.data()}`);
@@ -106,10 +106,13 @@ if (page.id === 'homePage') {
               </ons-carousel-item>`;
       $('#carousel').append(carousel);
       //` ` for ต่อ string
-
+  
     });
   });
 }
+
+
+  
 
 
 
