@@ -26,7 +26,7 @@ firebase.auth().onAuthStateChanged(function (user) {
     var uid = user.uid;
     var providerData = user.providerData;
     console.log(`${email} User is signed in.`);
-    $("#content")[0].load("foodcategory.html");
+    $("#content")[0].load("home.html");
     // ...
   } else {
     // User is signed out.
@@ -55,15 +55,6 @@ document.addEventListener('init', function (event) {
 
     });
 
-    $("#register").click(function () {
-      // $("#content")[0].load("register.html");
-      firebase.auth().signOut().then(function () {
-        console.log("logout");
-        // Sign-out successful.
-      }).catch(function (error) {
-        // An error happened.
-      });
-    });
 
     $("#googlelogin").click(function () {
       var provider = new firebase.auth.GoogleAuthProvider();
@@ -89,27 +80,64 @@ document.addEventListener('init', function (event) {
     });
 
   }
+
+  if (page.id === 'homePage') {
+    $("#carousel").empty();
+      db.collection("res").get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {       
+          var item = `<ons-carousel-item modifier="nodivider" id="item${doc.data().id}" class="recomended_item">
+              <div class="thumbnail" style="background-image: url('${doc.data().url}')"></div>           
+              <div class="recomended_item_title" id="item1_${doc.data().id}">${doc.data().name}</div>
+          </ons-carousel-item>`
+          $("#carousel").append(item);
+        });
+      });
+  }
+
+  if (page.id === 'homePage') {
+    console.log("homePage");
+
+    $("#menubtn").click(function () {
+      $("#sidemenu")[0].open();
+    });
+
+  }
+
+  if (page.id === 'menuPage') {
+    console.log("menuPage");
+
+    $("#logout").click(function () {
+      // $("#content")[0].load("register.html");
+      firebase.auth().signOut().then(function () {
+        console.log("logout");
+        // Sign-out successful.
+      }).catch(function (error) {
+        // An error happened.
+      });
+      $("#content")[0].load("login.html");
+    });
+
+    $("#login").click(function () {
+      $("#content")[0].load("login.html");
+      $("#sidemenu")[0].close();
+    });
+
+    $("#home").click(function () {
+      $("#content")[0].load("home.html");
+      $("#sidemenu")[0].close();
+    });
+  }
+
+  if (page.id === 'loginPage') {
+    console.log("loginPage");
+
+    $("#backhomebtn").click(function () {
+      $("#content")[0].load("home.html");
+    });
+  }
+
 });
 
-if (page.id === 'foodcategory') {
-  db.collection("recommended").get().then((querySnapshot) => {
-    querySnapshot.forEach((doc) => {
-      //object
-      console.log(`${doc.id} => ${doc.data()}`);
-      // each
-      console.log("name : " + doc.data().name);
-      console.log("id : " + doc.data().id);
-      var carousel = `<ons-carousel-item modifier="nodivider" id="item1" class="recomended_item">
-              <div class="thumbnail" style="background-image: url( ${doc.data().photourl} )">
-              </div>
-              <div class="recomended_item_title" id="item1_name">${doc.data().name}</div>
-              </ons-carousel-item>`;
-      $('#carousel').append(carousel);
-      //` ` for ต่อ string
-  
-    });
-  });
-}
 
 
   
