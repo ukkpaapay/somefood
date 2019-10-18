@@ -101,6 +101,10 @@ document.addEventListener('init', function (event) {
       $("#sidemenu")[0].open();
     });
 
+    $("#carousel").click(function () {
+      $("#content")[0].load("resturantmenu.html");
+    });
+
   }
 
   if (page.id === 'menuPage') {
@@ -128,10 +132,18 @@ document.addEventListener('init', function (event) {
     });
   }
 
-  if (page.id === 'loginPage') {
-    console.log("loginPage");
 
-    $("#backhomebtn").click(function () {
+
+  if (page.id === 'restureantlist') {
+
+    $("#backbtn").click(function () {
+      $("#content")[0].load("home.html");
+    });
+  }
+
+  if (page.id === 'restureantmenu') {
+
+    $("#backbtn").click(function () {
       $("#content")[0].load("home.html");
     });
   }
@@ -141,6 +153,7 @@ document.addEventListener('init', function (event) {
 
 
   
+
 
 
 

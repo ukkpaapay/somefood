@@ -165,9 +165,7 @@ h4, h5, h6 {
 .page--material__content h3 {
   font-size: 20px;
 }
-.page--material__background {
-  background-color: #ffffff;
-}
+
 :root { /* background color active */
 }
 /*~
@@ -5762,14 +5760,14 @@ h4, h5, h6 {
       <circle class="progress-circular__primary progress-circular--material__primary" style="stroke-dasharray: 80%, 251.32%"/>
     </svg>
 */
-.progress-circular--material__background,
+/* .progress-circular--material__background, */
 .progress-circular--material__primary,
 .progress-circular--material__secondary {
   stroke-width: 9%;
 }
-.progress-circular--material__background {
+/* .progress-circular--material__background {
   stroke: #dbdbdb;
-}
+} */
 .progress-circular--material__primary {
   stroke: #009688;
 }
