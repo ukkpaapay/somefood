@@ -1,16 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
-    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
-    <script src="Onsen/js/onsenui.min.js"></script>
-</head>
-
-<body background="https://firebasestorage.googleapis.com/v0/b/somefood-f12c4.appspot.com/o/wallpaper%2F1.jpeg?alt=media&token=aa7f7392-7de5-405c-93ee-e5eff5a2e83d">
-
-
-
+<ons-page id="register">
     <div style="border:1px solid #0000 ; height: 10%;"></div>
     </div>
 
@@ -24,10 +12,10 @@
                 <ons-input id="FullName" modifier="underbar" placeholder="Full Name" float></ons-input>
               </p>
               <p>
-                <ons-input id="EmailAddress" modifier="underbar" type="password" placeholder="Email Address" float></ons-input>
+                <ons-input id="EmailAddress" modifier="underbar" type="Email" placeholder="Email Address" float></ons-input>
               </p>
               <p>
-                <ons-input id="PhoneNumber" modifier="underbar" type="password" placeholder="Phone Number" float></ons-input>
+                <ons-input id="PhoneNumber" modifier="underbar" placeholder="Phone Number" float></ons-input>
               </p>
               <p>
                 <ons-input id="Password" modifier="underbar" type="password" placeholder="Password" float></ons-input>
@@ -35,7 +23,7 @@
               
 
               <p style="margin-top: 30px;">
-                <ons-button onclick="login()">Sign up</ons-button>
+                <ons-button id="SignUp">Sign up</ons-button>
               </p>
               <br>
               <div style="margin-right:10%; margin-left:10%; ">
@@ -54,6 +42,4 @@
     <div style="border:1px solid #0000 ; height: 10%;">
     </div>
 
-</body>
-
-</html>
+  </ons-page>

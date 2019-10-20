@@ -79,7 +79,41 @@ document.addEventListener('init', function (event) {
 
     });
 
+    $("#register").click(function () {
+      $("#content")[0].load("register.html");
+    });
+
   }
+
+  if (page.id == 'register') {
+    $('#SignUp').click(function () {
+        var email = document.getElementById('EmailAddress').value;
+        var password = document.getElementById('Password').value;
+        //var fullname = document.getElementById('fullnamesignup').value;
+        //var phone = document.getElementById('phonenumbersignup').value;
+        if (email.length < 4) {
+            alert('Please enter an email address.');
+            return;
+        }
+        if (password.length < 4) {
+            alert('Please enter a password.');
+            return;
+        }
+        firebase.auth().createUserWithEmailAndPassword(email, password).catch(function (error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            // [START_EXCLUDE]
+            if (errorCode == 'auth/weak-password') {
+                alert('The password is too weak.');
+            } else {
+                alert(errorMessage);
+            }
+            console.log(error);
+            // [END_EXCLUDE]
+        });
+    });
+}
 
   if (page.id === 'homePage') {
     $("#carousel").empty();
@@ -201,6 +235,60 @@ document.addEventListener('init', function (event) {
     $("#backbtn").click(function () {
       $("#content")[0].load("home.html");
     });
+  }
+
+  if (page.id === 'restureantmenu') {
+     
+        var id = page.data.id
+        console.log(resId);
+        var rest = db.collection("res").doc(id);
+
+        rest.get().then(function (doc) {
+            if (doc.exists) {
+                $("#foods").empty()
+
+                console.log("Document data:", doc.data());
+                var restaurant = doc.data();
+                var menulist = restaurant.menu;
+                $("#respic").attr('src', photoUrl)
+                for (var i = 0; i < menulist.length; i++) {
+                    var ons_foods = ""
+                    var cate = menulist[i];
+                    var foods = cate.foodmenus;
+                    for (var j = 0; j < foods.length; j++) {
+                        var food = foods[j];
+                        var foodname = food.name;
+                        var foodprice = food.price;
+                        ons_foods += `
+                        <ons-list-item style="background-color: orange">
+                            ${foodname}<br>> ${foodprice} ฿
+                            <p class="right" onclick="buy(${foodprice}, '${foodname}')">
+                                <ons-button>
+                                    +
+                                </ons-button>
+                            </p>
+                        </ons-list-item>
+                    `
+                    }
+                    var ons_list = `<ons-list >
+                    <ons-list-item expandable>
+                        <h1>
+                            
+                        </h1><div class="expandable-content">
+                        ${ons_foods}</div>
+                    </ons-list-item>
+                </ons-list>`
+                    $("#foods").append(ons_list);
+                }
+            } else {
+                // doc.data() will be undefined in this case
+                console.log("No such document!");
+            }
+        }).catch(function (error) {
+            console.log("Error getting document:", error);
+        });
+
+    
   }
 
 });
