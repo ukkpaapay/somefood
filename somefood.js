@@ -92,10 +92,17 @@ document.addEventListener('init', function (event) {
           $("#carousel").append(item);
         });
       });
-  }
+  
 
-  if (page.id === 'homePage') {
-    console.log("homePage");
+  $("#ffbtn").click(function () {
+    localStorage.setItem("selectedCategory", "fastfood");
+    $("#content")[0].load("resturantlist.html");
+  });
+
+  $("#drinkbtn").click(function () {
+    localStorage.setItem("selectedCategory", "drink");
+    $("#content")[0].load("resturantlist.html");
+  });
 
     $("#menubtn").click(function () {
       $("#sidemenu")[0].open();
@@ -105,6 +112,54 @@ document.addEventListener('init', function (event) {
       $("#content")[0].load("resturantmenu.html");
     });
 
+  }
+
+  if (page.id === 'restureantlist') {
+    var category = localStorage.getItem("selectedCategory");
+    console.log("categoryPage:" + category);
+
+    $("#list").empty();
+    db.collection("res").where("category", "==", category).get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        var item = `<ons-row class="category">
+                <ons-col modifier="nodivider">
+                    <div class="category_header" style="background-image: url('${doc.data().url}')">
+                        <figure class="category_thumbnail" id="menu">
+                            <div class="category_title" id="Category_1_name">${doc.data().name}</div>
+                        </figure>
+                    </div>
+                </ons-col>
+         </ons-row>`
+        $("#list").append(item);
+        console.log(doc.data().name);
+        
+      });
+    });
+
+    $("#list").empty();
+    db.collection("drink").where("category", "==", category).get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        var item = `<ons-row class="category">
+                <ons-col modifier="nodivider">
+                    <div class="category_header" style="background-image: url('${doc.data().url}')">
+                        <figure class="category_thumbnail" id="menu">
+                            <div class="category_title" id="Category_1_name">${doc.data().name}</div>
+                        </figure>
+                    </div>
+                </ons-col>
+         </ons-row>`
+        $("#list").append(item);
+        console.log(doc.data().name);
+        
+      });
+    });
+
+    $("#list").click(function () {
+      $("#content")[0].load("resturantmenu.html");
+    });
+    
   }
 
   if (page.id === 'menuPage') {
