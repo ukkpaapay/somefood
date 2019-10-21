@@ -36,16 +36,12 @@ firebase.auth().onAuthStateChanged(function (user) {
   }
 });
 
-function res(resid) {
+function selectmenu(resid) {
   id = resid;
   console.log(id);
-  $("#content")[0].load('resturantlist.html');
-}
+  localStorage.setItem("selectedRestId", id)
+  $("#content")[0].load("resturantlist.html");
 
-function drink(drinkid) {
-  id = drinkid;
-  console.log(id);
-  $("#content")[0].load('resturantlist.html');
 }
 
 var it = [];
@@ -55,14 +51,15 @@ function order(item, price) {
   it.push(item);
   pr.push(price);
   itpr += parseInt(price);
-  console.log(itpr);
-  console.log(it);
-  console.log(pr);
-  console.log(it.length);
+  it.forEach(element => {
+    console.log(element);
+  });
+
 }
 
 document.addEventListener('init', function (event) {
   var page = event.target;
+  console.log("now at:", page.id);
 
   if (page.id === 'loginPage') {
 
@@ -154,7 +151,7 @@ document.addEventListener('init', function (event) {
 
 
     $("#ffbtn").click(function () {
-      localStorage.setItem("selectedCategory", "fastfood");
+      localStorage.setItem("selectedCategory", "res");
       $("#content")[0].load("resturantlist.html");
     });
 
@@ -175,42 +172,23 @@ document.addEventListener('init', function (event) {
 
   if (page.id === 'restureantlist') {
     var category = localStorage.getItem("selectedCategory");
-    console.log("categoryPage:" + category);
+
 
     $("#list").empty();
-    db.collection("res").where("category", "==", category).get()
+    db.collection(category).get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-          var item = `<ons-row class="category" onclick="res('${doc.data().id}')">
+          var item = `<ons-row class="category" onclick="selectmenu('${doc.id}')">
                 <ons-col modifier="nodivider">
                     <div class="category_header" style="background-image: url('${doc.data().url}')">
                         <figure class="category_thumbnail" id="menu">
-                            <div class="category_title" id="Category_1_name">${doc.data().name}</div>
+                            <div class="category_title">${doc.data().name}</div>
                         </figure>
                     </div>
                 </ons-col>
          </ons-row>`
           $("#list").append(item);
-          console.log(doc.data().name);
 
-        });
-      });
-
-    $("#list").empty();
-    db.collection("drink").where("category", "==", category).get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          var item = `<ons-row class="category" onclick="drink('${doc.data().id}')">
-                <ons-col modifier="nodivider">
-                    <div class="category_header" style="background-image: url('${doc.data().url}')">
-                        <figure class="category_thumbnail" id="menu">
-                            <div class="category_title" id="Category_1_name">${doc.data().name}</div>
-                        </figure>
-                    </div>
-                </ons-col>
-         </ons-row>`
-          $("#list").append(item);
-          console.log(doc.data().name);
 
         });
       });
@@ -226,7 +204,7 @@ document.addEventListener('init', function (event) {
   }
 
   if (page.id === 'menuPage') {
-    console.log("menuPage");
+
 
     $("#logout").click(function () {
       // $("#content")[0].load("register.html");
@@ -256,30 +234,35 @@ document.addEventListener('init', function (event) {
   }
 
   if (page.id === 'restureantmenu') {
+    var catagorymenu = localStorage.getItem("selectedCategory");
+    var selectedRestId = localStorage.getItem("selectedRestId");
     $("#foods").empty();
-    db.collection("res").get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          if (doc.data().id === id) {
-            doc.data().menu.forEach(function (item) {
-              console.log(item.name);
-              console.log(item.price);
+    var docRef = db.collection(catagorymenu).doc(selectedRestId);
 
-              var item = `<ons-card style="background-color: #ededed ;"onclick="order('${item.name}', '${item.price}')">
-          <ons-row >
-              <ons-col >${item.name}</ons-col-8>
+    docRef.get().then(function (doc) {
+      if (doc.exists) {
+        doc.data().menu.forEach(item => {
 
-              <ons-col  align="right">${item.price}</ons-col-4>
-          </ons-row>
-      </ons-card>`
 
-              $("#foods").append(item);
+          var item = `<ons-card style="background-color: #ededed ;"onclick="order('${item.name}', '${item.price}')">
+      <ons-row >
+          <ons-col >${item.name}</ons-col-8>
 
-            });
-          }
+          <ons-col  align="right">${item.price}</ons-col-4>
+      </ons-row>
+  </ons-card>`
+
+          $("#foods").append(item);
         });
 
-      });
+
+      } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+      }
+    }).catch(function (error) {
+      console.log("Error getting document:", error);
+    });
 
 
     $("#back").click(function () {
@@ -291,37 +274,19 @@ document.addEventListener('init', function (event) {
   if (page.id === 'orderconfirmation') {
     for (var i = 0; i < it.length; i++) {
       var item = `
-      <center>
-      <ons-row>
-
-          <ons-col >
-               ${it[i]}
-          </ons-col>
-
-          <ons-col >
-               ${pr[i]}
-          </ons-col>
-      </ons-row>
-      </center>
-      <br><br>
-
-</ons-card>`
+      <ons-list-item>
+      <div class="left">${it[i]}</div>
+      <div class="right">${pr[i]}</div>
+      </ons-list-item>`
       $("#food").append(item);
     }
     $("#Total").append(itpr);
-
-
-
-
-    $("#backbtn").click(function () {
-      $("#content")[0].load("home.html");
-    });
+    $(function () {
+      $("#back").click(function () {
+        $("#content")[0].load("home.html");
+      });
+    })
   }
-
-
-
-
-
 });
 
 

@@ -1,27 +1,24 @@
 <ons-page id="orderconfirmation">
-    <div class="toolbar">
-        <div class="toolbar__left">
-            <div class="toolbar__left">
-                <span class="toolbar-button" id="backbtn">Back</span>
-            </div>
-            <span class="toolbar-button">
-                <i class="ion-navicon" style="font-size:32px; vertical-align:-6px;"></i>
-            </span>
+    <ons-toolbar>
+        <div class="left">
+            
+            <ons-toolbar-button>
+                    <span id="back">Back</span>
+            </ons-toolbar-button>
         </div>
-
-        <div class="toolbar__center">
+        <div class="center">
             Order
         </div>
-    </div>
+    </ons-toolbar>
 
-    <ons-card style="background-color: white ; height: 90%;">
+    <ons-card style="background-color: white ; ">
         <center>
-                <ons-list-header style="text-align: center;">YOUR ORDER LIST</ons-list-header>
+            <ons-list-header style="text-align: center;">YOUR ORDER LIST</ons-list-header>
             <ons-row>
                 <ons-col>
                     Name of Dish
                 </ons-col>
-
+                
                 <ons-col>
                     Price
                 </ons-col>
@@ -31,16 +28,17 @@
                 
 
             </ons-list>
+            <hr>
         </center>
         <ons-card id="Total" style="text-align: center;background-color: orange">
             TOTAL PRICE :
         </ons-card>
         <br>
-        </ons=card>
+        <hr>
+    
 
 
-
-        <!-- 
+    
         <center>
         <ons-button  style="width:90% ;background-color: red;">Credit Card</ons-button>
         </center>
@@ -51,9 +49,9 @@
         <br>
         <center>
         <ons-button  style="width:90% ;background-color: gray;">Chah on Delivery</ons-button>
-        </center> -->
+        </center>
 
-
+    </ons-card>
 
 
 
