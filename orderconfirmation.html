@@ -1,18 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
-    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
-    <script src="Onsen/js/onsenui.min.js"></script>
-</head>
-
-<body background="https://firebasestorage.googleapis.com/v0/b/somefood-f12c4.appspot.com/o/wallpaper%2F2.jpg?alt=media&token=6ab9ac3c-24d6-46b4-813f-ad108970edff">
-    <ons-page>
+<ons-page id="orderconfirmation">
     <div class="toolbar">
         <div class="toolbar__left">
             <div class="toolbar__left">
-                <span class="toolbar-button">Back</span>
+                <span class="toolbar-button" id="backbtn">Back</span>
             </div>
             <span class="toolbar-button">
                 <i class="ion-navicon" style="font-size:32px; vertical-align:-6px;"></i>
@@ -26,46 +16,31 @@
 
     <ons-card style="background-color: white ; height: 90%;">
         <center>
-            <img src="restaurant/aa9289de1ed2865bccd7c7457f246482.jpg" style=" height:100px; width:100px ;"><br>
-            <hr>
-            <ons-row style="height:30px; ">
-                <ons-col >
-                    Quantity
-                </ons-col>
-
-                <ons-col >
+                <ons-list-header style="text-align: center;">YOUR ORDER LIST</ons-list-header>
+            <ons-row>
+                <ons-col>
                     Name of Dish
                 </ons-col>
 
-                <ons-col >
+                <ons-col>
                     Price
                 </ons-col>
             </ons-row>
-            
-            <ons-row>
-                <ons-col >
-                    1
-                </ons-col>
+            <hr>
+            <ons-list id="food">
+                
 
-                <ons-col >
-                    WingZ Zabb
-                </ons-col>
-
-                <ons-col >
-                    ฿99.00
-                </ons-col>
-            </ons-row>
-<hr>
-    </ons-card>
-
-    <ons-card >
-        <center>
-            Total : ฿99.00
+            </ons-list>
         </center>
-    </ons-card><br>
+        <ons-card id="Total" style="text-align: center;background-color: orange">
+            TOTAL PRICE :
+        </ons-card>
+        <br>
+        </ons=card>
 
-    <hr><br>
 
+
+        <!-- 
         <center>
         <ons-button  style="width:90% ;background-color: red;">Credit Card</ons-button>
         </center>
@@ -76,14 +51,10 @@
         <br>
         <center>
         <ons-button  style="width:90% ;background-color: gray;">Chah on Delivery</ons-button>
-        </center>
+        </center> -->
 
 
-    </center>
 
 
 
 </ons-page>
-</body>
-
-</html>

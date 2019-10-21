@@ -36,6 +36,31 @@ firebase.auth().onAuthStateChanged(function (user) {
   }
 });
 
+function res(resid) {
+  id = resid;
+  console.log(id);
+  $("#content")[0].load('resturantlist.html');
+}
+
+function drink(drinkid) {
+  id = drinkid;
+  console.log(id);
+  $("#content")[0].load('resturantlist.html');
+}
+
+var it = [];
+var pr = [];
+var itpr = parseInt(0);
+function order(item, price) {
+  it.push(item);
+  pr.push(price);
+  itpr += parseInt(price);
+  console.log(itpr);
+  console.log(it);
+  console.log(pr);
+  console.log(it.length);
+}
+
 document.addEventListener('init', function (event) {
   var page = event.target;
 
@@ -73,7 +98,7 @@ document.addEventListener('init', function (event) {
         // The firebase.auth.AuthCredential type that was used.
         var credential = error.credential;
         console.log(error);
-        
+
         // ...
       });
 
@@ -87,56 +112,56 @@ document.addEventListener('init', function (event) {
 
   if (page.id == 'register') {
     $('#SignUp').click(function () {
-        var email = document.getElementById('EmailAddress').value;
-        var password = document.getElementById('Password').value;
-        //var fullname = document.getElementById('fullnamesignup').value;
-        //var phone = document.getElementById('phonenumbersignup').value;
-        if (email.length < 4) {
-            alert('Please enter an email address.');
-            return;
+      var email = document.getElementById('EmailAddress').value;
+      var password = document.getElementById('Password').value;
+      //var fullname = document.getElementById('fullnamesignup').value;
+      //var phone = document.getElementById('phonenumbersignup').value;
+      if (email.length < 4) {
+        alert('Please enter an email address.');
+        return;
+      }
+      if (password.length < 4) {
+        alert('Please enter a password.');
+        return;
+      }
+      firebase.auth().createUserWithEmailAndPassword(email, password).catch(function (error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // [START_EXCLUDE]
+        if (errorCode == 'auth/weak-password') {
+          alert('The password is too weak.');
+        } else {
+          alert(errorMessage);
         }
-        if (password.length < 4) {
-            alert('Please enter a password.');
-            return;
-        }
-        firebase.auth().createUserWithEmailAndPassword(email, password).catch(function (error) {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            // [START_EXCLUDE]
-            if (errorCode == 'auth/weak-password') {
-                alert('The password is too weak.');
-            } else {
-                alert(errorMessage);
-            }
-            console.log(error);
-            // [END_EXCLUDE]
-        });
+        console.log(error);
+        // [END_EXCLUDE]
+      });
     });
-}
+  }
 
   if (page.id === 'homePage') {
     $("#carousel").empty();
-      db.collection("res").get().then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {       
-          var item = `<ons-carousel-item modifier="nodivider" id="item${doc.data().id}" class="recomended_item">
-              <div class="thumbnail" style="background-image: url('${doc.data().url}')"></div>           
+    db.collection("res").get().then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        var item = `<ons-carousel-item modifier="nodivider" id="item${doc.data().id}" class="recomended_item">
+              <div  class="thumbnail" style="background-image: url('${doc.data().url}')"></div>           
               <div class="recomended_item_title" id="item1_${doc.data().id}">${doc.data().name}</div>
           </ons-carousel-item>`
-          $("#carousel").append(item);
-        });
+        $("#carousel").append(item);
       });
-  
+    });
 
-  $("#ffbtn").click(function () {
-    localStorage.setItem("selectedCategory", "fastfood");
-    $("#content")[0].load("resturantlist.html");
-  });
 
-  $("#drinkbtn").click(function () {
-    localStorage.setItem("selectedCategory", "drink");
-    $("#content")[0].load("resturantlist.html");
-  });
+    $("#ffbtn").click(function () {
+      localStorage.setItem("selectedCategory", "fastfood");
+      $("#content")[0].load("resturantlist.html");
+    });
+
+    $("#drinkbtn").click(function () {
+      localStorage.setItem("selectedCategory", "drink");
+      $("#content")[0].load("resturantlist.html");
+    });
 
     $("#menubtn").click(function () {
       $("#sidemenu")[0].open();
@@ -154,9 +179,9 @@ document.addEventListener('init', function (event) {
 
     $("#list").empty();
     db.collection("res").where("category", "==", category).get()
-    .then((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        var item = `<ons-row class="category">
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          var item = `<ons-row class="category" onclick="res('${doc.data().id}')">
                 <ons-col modifier="nodivider">
                     <div class="category_header" style="background-image: url('${doc.data().url}')">
                         <figure class="category_thumbnail" id="menu">
@@ -165,17 +190,17 @@ document.addEventListener('init', function (event) {
                     </div>
                 </ons-col>
          </ons-row>`
-        $("#list").append(item);
-        console.log(doc.data().name);
-        
+          $("#list").append(item);
+          console.log(doc.data().name);
+
+        });
       });
-    });
 
     $("#list").empty();
     db.collection("drink").where("category", "==", category).get()
-    .then((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        var item = `<ons-row class="category">
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          var item = `<ons-row class="category" onclick="drink('${doc.data().id}')">
                 <ons-col modifier="nodivider">
                     <div class="category_header" style="background-image: url('${doc.data().url}')">
                         <figure class="category_thumbnail" id="menu">
@@ -184,16 +209,20 @@ document.addEventListener('init', function (event) {
                     </div>
                 </ons-col>
          </ons-row>`
-        $("#list").append(item);
-        console.log(doc.data().name);
-        
+          $("#list").append(item);
+          console.log(doc.data().name);
+
+        });
       });
-    });
 
     $("#list").click(function () {
       $("#content")[0].load("resturantmenu.html");
     });
-    
+
+    $("#backbtn").click(function () {
+      $("#content")[0].load("home.html");
+    });
+
   }
 
   if (page.id === 'menuPage') {
@@ -215,37 +244,89 @@ document.addEventListener('init', function (event) {
       $("#sidemenu")[0].close();
     });
 
+    $("#Cart").click(function () {
+      $("#content")[0].load("orderconfirmation.html");
+      $("#sidemenu")[0].close();
+    });
+
     $("#home").click(function () {
       $("#content")[0].load("home.html");
       $("#sidemenu")[0].close();
     });
   }
 
+  if (page.id === 'restureantmenu') {
+    $("#foods").empty();
+    db.collection("res").get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          if (doc.data().id === id) {
+            doc.data().menu.forEach(function (item) {
+              console.log(item.name);
+              console.log(item.price);
+
+              var item = `<ons-card style="background-color: #ededed ;"onclick="order('${item.name}', '${item.price}')">
+          <ons-row >
+              <ons-col >${item.name}</ons-col-8>
+
+              <ons-col  align="right">${item.price}</ons-col-4>
+          </ons-row>
+      </ons-card>`
+
+              $("#foods").append(item);
+
+            });
+          }
+        });
+
+      });
 
 
-  if (page.id === 'restureantlist') {
+    $("#back").click(function () {
+      $("#content")[0].load("home.html");
+    });
+
+  }
+
+  if (page.id === 'orderconfirmation') {
+    for (var i = 0; i < it.length; i++) {
+      var item = `
+      <center>
+      <ons-row>
+
+          <ons-col >
+               ${it[i]}
+          </ons-col>
+
+          <ons-col >
+               ${pr[i]}
+          </ons-col>
+      </ons-row>
+      </center>
+      <br><br>
+
+</ons-card>`
+      $("#food").append(item);
+    }
+    $("#Total").append(itpr);
+
+
+
 
     $("#backbtn").click(function () {
       $("#content")[0].load("home.html");
     });
   }
 
-  if (page.id === 'restureantmenu') {
 
-    $("#backbtn").click(function () {
-      $("#content")[0].load("home.html");
-    });
-  }
 
-  if (page.id === 'restureantmenu') {
-     
-  }
+
 
 });
 
 
 
-  
+
 
 
 
