@@ -48,6 +48,7 @@ var it = [];
 var pr = [];
 var itpr = parseInt(0);
 function order(item, price) {
+  ons.notification.alert("Add to card !");
   it.push(item);
   pr.push(price);
   itpr += parseInt(price);
@@ -141,7 +142,7 @@ document.addEventListener('init', function (event) {
     $("#carousel").empty();
     db.collection("res").get().then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
-        var item = `<ons-carousel-item modifier="nodivider" id="item${doc.data().id}" class="recomended_item">
+        var item = `<ons-carousel-item modifier="nodivider" onclick="selectmenu('${doc.id}')" class="recomended_item">
               <div  class="thumbnail" style="background-image: url('${doc.data().url}')"></div>           
               <div class="recomended_item_title" id="item1_${doc.data().id}">${doc.data().name}</div>
           </ons-carousel-item>`
@@ -178,15 +179,18 @@ document.addEventListener('init', function (event) {
     db.collection(category).get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-          var item = `<ons-row class="category" onclick="selectmenu('${doc.id}')">
-                <ons-col modifier="nodivider">
-                    <div class="category_header" style="background-image: url('${doc.data().url}')">
-                        <figure class="category_thumbnail" id="menu">
-                            <div class="category_title">${doc.data().name}</div>
-                        </figure>
-                    </div>
-                </ons-col>
-         </ons-row>`
+          var item = `
+         
+          <ons-card>
+        <ons-row >
+                    <img src="${doc.data().url}" height="100" width="100">
+                <ons-col style="margin-left:5% "><p>${doc.data().name}</p></ons-col-8>
+
+                <ons-col  align="right"><ons-button style="background-color: gray;" onclick="selectmenu('${doc.id}')">Menu</ons-button></ons-col-4>
+            </ons-row>
+    </ons-card>
+         
+         `
           $("#list").append(item);
 
 
@@ -217,11 +221,6 @@ document.addEventListener('init', function (event) {
       $("#content")[0].load("login.html");
     });
 
-    $("#login").click(function () {
-      $("#content")[0].load("login.html");
-      $("#sidemenu")[0].close();
-    });
-
     $("#Cart").click(function () {
       $("#content")[0].load("orderconfirmation.html");
       $("#sidemenu")[0].close();
@@ -237,24 +236,25 @@ document.addEventListener('init', function (event) {
     var catagorymenu = localStorage.getItem("selectedCategory");
     var selectedRestId = localStorage.getItem("selectedRestId");
     $("#foods").empty();
+    $("#photo").empty();
     var docRef = db.collection(catagorymenu).doc(selectedRestId);
-
+    var photo =
     docRef.get().then(function (doc) {
       if (doc.exists) {
+        var photo = `<ons-row ><img class ="img" src="${doc.data().url}" style="width: 50% ;" class="center"></img><ons-col  align="right"><h3 style="color: green;">open</h3></ons-col-4>
+        </ons-row>`
         doc.data().menu.forEach(item => {
-
-
-          var item = `<ons-card style="background-color: #ededed ;"onclick="order('${item.name}', '${item.price}')">
+          var item = ` <ons-card style="background-color:${doc.data().color};"  onclick="order('${item.name}','${item.price}')">
+          
       <ons-row >
-          <ons-col >${item.name}</ons-col-8>
+          <ons-col ><h3>${item.name}</h3></ons-col-8>
 
-          <ons-col  align="right">${item.price}</ons-col-4>
+          <ons-col  align="right">${item.price} baht</ons-col-4>
       </ons-row>
   </ons-card>`
-
           $("#foods").append(item);
         });
-
+        $("#photo").append(photo);
 
       } else {
         // doc.data() will be undefined in this case
@@ -286,6 +286,52 @@ document.addEventListener('init', function (event) {
         $("#content")[0].load("home.html");
       });
     })
+
+    $("#cfbtn").click(function () {
+      
+      if(pr == parseInt(0)){
+        ons.notification.alert("No menu !");
+      }else{
+        ons.notification.alert("Order sucess !");
+      pr = parseInt(0);
+      it = parseInt(0);
+      it = [];
+      pr = [];
+      $("#content")[0].load("home.html");
+    
+    }
+    });
+    
+    $("#cfbtn1").click(function () {
+      
+      if(pr == parseInt(0)){
+        ons.notification.alert("No menu !");
+      }else{
+        ons.notification.alert("Order sucess !");
+      pr = parseInt(0);
+      it = parseInt(0);
+      it = [];
+      pr = [];
+      $("#content")[0].load("home.html");
+    
+    }
+    });
+
+    $("#cfbtn2").click(function () {
+      
+      if(pr == parseInt(0)){
+        ons.notification.alert("No menu !");
+      }else{
+        ons.notification.alert("Order sucess !");
+      pr = parseInt(0);
+      it = parseInt(0);
+      it = [];
+      pr = [];
+      $("#content")[0].load("home.html");
+    
+    }
+    });
+
   }
 });
 
