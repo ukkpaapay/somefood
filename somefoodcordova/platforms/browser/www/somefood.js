@@ -230,7 +230,13 @@ document.addEventListener('init', function (event) {
       $("#content")[0].load("home.html");
       $("#sidemenu")[0].close();
     });
+
+    $("#address").click(function () {
+      $("#content")[0].load("address.html");
+      $("#sidemenu")[0].close();
+    });
   }
+
 
   if (page.id === 'restureantmenu') {
     var catagorymenu = localStorage.getItem("selectedCategory");
@@ -331,6 +337,63 @@ document.addEventListener('init', function (event) {
     
     }
     });
+
+  }
+  if (page.id === 'address') {
+    var Lat;
+    var Long;
+    var selectedLat;
+    var selectedLong;
+var onSuccess = function(position) {
+  Lat = position.coords.latitude;
+  Long = position.coords.longitude;
+
+
+  mapboxgl.accessToken = 'pk.eyJ1IjoidWtrcGFhcGF5IiwiYSI6ImNrMmxkZHZudTA1ejYzbm4zNGQ4am1reTYifQ.jplxg5e1HfLDYOa55I4aZg';
+var map = new mapboxgl.Map({
+container: 'map', // container id
+style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
+center: [Long,Lat], // starting position [lng, lat]
+zoom: 14 // starting zoom
+});
+  // alert('Latitude: '          + position.coords.latitude          + '\n' +
+  //       'Longitude: '         + position.coords.longitude         + '\n' +
+  //       'Altitude: '          + position.coords.altitude          + '\n' +
+  //       'Accuracy: '          + position.coords.accuracy          + '\n' +
+  //       'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
+  //       'Heading: '           + position.coords.heading           + '\n' +
+  //       'Speed: '             + position.coords.speed             + '\n' +
+  //       'Timestamp: '         + position.timestamp                + '\n');
+  var marker = new mapboxgl.Marker({
+    draggable: true
+  })
+    .setLngLat([Long, Lat])
+    .addTo(map);
+  onDragEnd();
+  function onDragEnd() {
+    var lngLat = marker.getLngLat();
+    selectedLat = lngLat.lat;
+    selectedLong = lngLat.lng;
+
+    coordinates.style.display = 'block';
+    coordinates.innerHTML = 'Longitude: ' + lngLat.lng + '<br />Latitude: ' + lngLat.lat;
+  }
+
+  marker.on('dragend', onDragEnd);
+
+};
+
+
+    
+
+// onError Callback receives a PositionError object
+//
+function onError(error) {
+  alert('code: '    + error.code    + '\n' +
+        'message: ' + error.message + '\n');
+}
+
+navigator.geolocation.getCurrentPosition(onSuccess, onError);
 
   }
 });

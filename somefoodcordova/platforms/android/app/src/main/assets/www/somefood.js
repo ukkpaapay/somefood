@@ -230,7 +230,13 @@ document.addEventListener('init', function (event) {
       $("#content")[0].load("home.html");
       $("#sidemenu")[0].close();
     });
+
+    $("#address").click(function () {
+      $("#content")[0].load("address.html");
+      $("#sidemenu")[0].close();
+    });
   }
+
 
   if (page.id === 'restureantmenu') {
     var catagorymenu = localStorage.getItem("selectedCategory");
@@ -332,6 +338,15 @@ document.addEventListener('init', function (event) {
     }
     });
 
+  }
+  if (page.id === 'address') {
+    mapboxgl.accessToken = 'pk.eyJ1IjoidWtrcGFhcGF5IiwiYSI6ImNrMmxkZHZudTA1ejYzbm4zNGQ4am1reTYifQ.jplxg5e1HfLDYOa55I4aZg';
+var map = new mapboxgl.Map({
+container: 'map', // container id
+style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
+center: [-74.50, 40], // starting position [lng, lat]
+zoom: 9 // starting zoom
+});
   }
 });
 
