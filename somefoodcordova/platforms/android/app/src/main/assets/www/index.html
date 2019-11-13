@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>SomeFood</title>
+
+  <!-- <link rel="stylesheet" href="lib/onsen/css/onsenui.css">
+  <link rel="stylesheet" href="lib/onsen/css/onsen-css-components.css"> -->
+  <link rel="stylesheet" href="lib/onsen/css/onsenui.css">
+  <link rel="stylesheet" href="lib/onsen/css/onsen-css-components.css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+
+  <link rel="manifest" href="/manifest.json">
+  <script>if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js')
+            .then((reg) => {
+              console.log('Service worker registered.', reg);
+            });
+      });
+    }</script>
+
+
+  <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-auth.js"></script>
+  <script src="lib/onsen/js/onsenui.js"></script>
+  <script src="lib/jquery/jquery-3.4.1.min.js"></script>
+  <script src="somefood.js"></script>
+
+  <style>
+    .img {
+      border-radius: 50%;
+    }
+
+
+    .recomended_item {
+      padding-left: 10px;
+
+    }
+
+    .recomended_item_title {
+      font-size: 12px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .thumbnail {
+      width: 120px;
+      height: 120px;
+      display: table;
+      background-color: rgba(0, 0, 0, 0.42);
+      background-size: cover;
+    }
+
+    .recomended_list {
+      height: 150px;
+    }
+
+    .recomended {
+      background-color: white;
+      padding-top: 60px;
+    }
+
+    .menu_list {
+      background: transparent;
+    }
+
+    .menu_item {
+      color: white;
+      font-size: 12px;
+    }
+
+    .menu_item ons-icon {
+      margin-right: 10px;
+      color: gray;
+      font-size: 16px;
+    }
+
+    .category_content {
+      background-color: white;
+    }
+
+    .category {
+      margin: 20px 0px;
+      padding: 0px 30px;
+    }
+
+    .category_wrapper {
+      max-width: 150px;
+      width: 95%;
+      height: 120px;
+      margin: auto;
+      background-color: gold;
+    }
+
+    .category_header {
+      width: 95%;
+      height: 80px;
+      margin: auto;
+      background-color: gold;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    .category_header_title {
+      font-size: 50px;
+      text-transform: uppercase;
+      font-weight: bold;
+      color: black;
+      padding-top: 20px;
+    }
+
+    .category_wrapper ons-icon {
+      font-size: 55px;
+      padding-top: 10px;
+      line-height: 0.75em;
+    }
+
+    .category_thumbnail {
+      display: inline-block;
+      margin: 16px 0px;
+    }
+
+    .category_title {
+      font-size: 30px;
+      font-weight: bold;
+      color: white;
+      padding-top: 20px;
+    }
+
+    #loginPage .page__background {
+      background-image: url('https://firebasestorage.googleapis.com/v0/b/somefood-f12c4.appspot.com/o/wallpaper%2F1.jpeg?alt=media&token=aa7f7392-7de5-405c-93ee-e5eff5a2e83d');
+    }
+
+    .background {
+      background-image: url('https://firebasestorage.googleapis.com/v0/b/somefood-f12c4.appspot.com/o/wallpaper%2F2.jpg?alt=media&token=6ab9ac3c-24d6-46b4-813f-ad108970edff');
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <!-- First navigation component: Navigator. This will remain always on top of the app. -->
+  <ons-navigator id="myNavigator" page="splitter.html">
+  </ons-navigator>
+
+
+  <!-- Second navigation component: Splitter. This will disappear if the first component changes its content. -->
+  <template id="splitter.html">
+    <ons-page>
+      <ons-splitter id="mySplitter">
+        <ons-splitter-side id="sidemenu" page="menu.html" swipeable width="250px" collapse swipe-target-width="50px">
+        </ons-splitter-side>
+        <ons-splitter-content page="login.html" id="content">
+        </ons-splitter-content>
+      </ons-splitter>
+    </ons-page>
+  </template>
+
+  <!-- <script src="lib/jquery/jquery-3.4.1.min.js"></script>
+  <script src="lib/onsen/js/onsenui.js"></script>
+
+  <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-auth.js"></script> -->
+
+
+</body>
+
+</html>
