@@ -41,7 +41,6 @@ function selectmenu(resid) {
   console.log(id);
   localStorage.setItem("selectedRestId", id)
   $("#content")[0].load("resturantlist.html");
-  
 
 }
 
@@ -318,13 +317,6 @@ document.addEventListener('init', function (event) {
     }
     });
 
-    $("#cfbtn3").click(function () {
-      
-      $("#content")[0].load("address.html");
-    
-    
-    });
-
     $("#cfbtn2").click(function () {
       
       if(pr == parseInt(0)){
@@ -343,9 +335,6 @@ document.addEventListener('init', function (event) {
   }
 <<<<<<< HEAD
   if (page.id === 'address') {
-    $("#menubtn").click(function () {
-      $("#sidemenu")[0].open();
-    });
     var Lat;
     var Long;
     var selectedLat;
