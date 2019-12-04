@@ -231,13 +231,7 @@ document.addEventListener('init', function (event) {
       $("#content")[0].load("home.html");
       $("#sidemenu")[0].close();
     });
-
-    $("#address").click(function () {
-      $("#content")[0].load("address.html");
-      $("#sidemenu")[0].close();
-    });
   }
-
 
   if (page.id === 'restureantmenu') {
     var catagorymenu = localStorage.getItem("selectedCategory");
@@ -347,6 +341,7 @@ document.addEventListener('init', function (event) {
     });
 
   }
+<<<<<<< HEAD
   if (page.id === 'address') {
     $("#menubtn").click(function () {
       $("#sidemenu")[0].open();
@@ -407,6 +402,8 @@ function onError(error) {
 navigator.geolocation.getCurrentPosition(onSuccess, onError);
 
   }
+=======
+>>>>>>> parent of a6a8cc0... maker
 });
 
 
